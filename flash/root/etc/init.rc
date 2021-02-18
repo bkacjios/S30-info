@@ -1,0 +1,90 @@
+import /init.${ro.hardware}.rc
+
+on early-init
+    start ueventd
+
+on early-fs
+    mkdir /mnt 0775 root root
+    mkdir /mnt/usb1 0755 root root
+    mkdir /mnt/usbotg 0755 root root
+    mkdir /mnt/extsd 0755 root root
+	mkdir /mnt/extsd2 0755 root root
+	mkdir /system 0775 root root
+
+on post-fs-data
+	insmod /lib/modules/3.4.39/mali.ko
+
+sysclktz 0
+
+loglevel 0
+
+    export PATH /sbin:/bin:
+    export LD_LIBRARY_PATH /lib:/mnt/extsd/lib
+    export ANDROID_ROOT /
+	
+on boot
+    ifup lo
+    hostname localhost
+    domainname localdomain
+    setrlimit 13 40 40
+    chown root radio /proc/cmdline
+    class_start core
+    class_start main
+
+on nonencrypted
+    class_start late_start
+
+service ueventd /sbin/ueventd
+    class core
+    critical
+	
+#service console /bin/sh
+#    class core
+#    disabled
+#    console
+#    user root
+#    group log
+
+#on property:ro.debuggable=1
+#    start console
+
+service vold /bin/vold
+    class core
+    socket vold stream 0660 root mount
+    ioprio be 2
+
+on property:persist.sys.zkdebug=1
+	start adbd
+
+on property:persist.sys.zkdebug=0
+	stop adbd
+
+service mtp /bin/MtpDaemon
+    class main
+
+service game /mnt/extsd/bin/gmenu2x
+    class main
+	user root
+	disabled
+
+service daemon /bin/daemon
+    class main
+	user root
+
+service adbd /bin/adbd
+    class core
+    disabled
+    socket adbd stream 660 system system
+
+on property:sys.usb.config=mtp,adb
+    write /sys/class/android_usb/android0/enable        0
+    write /sys/class/android_usb/android0/idVendor      1f3a
+    write /sys/class/android_usb/android0/idProduct     1007
+    write /sys/class/android_usb/android0/functions     ${sys.usb.config}
+    write /sys/class/android_usb/android0/enable        1
+    setprop sys.usb.state ${sys.usb.config}	
+	
+#service slogo /bin/show_logo
+#    class core
+#	user root
+#	oneshot

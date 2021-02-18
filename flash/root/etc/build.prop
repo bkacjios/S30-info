@@ -1,0 +1,12 @@
+ro.build.display.id=zkos,flythings
+ro.build.version.sdk=flythings
+ro.build.version.codename=flythings
+ro.build.version.release=flythingsV2.1
+ro.product.model=Zkswe_A33_SPINOR
+ro.product.name=swaio
+ro.product.device=swaio
+ro.product.board=swaio
+ro.product.manufacturer=zkswe
+ro.build.description=zkos
+ro.build.fingerprint=ZKOS,flythings(see www.zkswe.com)
+ro.system.version=2.6.2
