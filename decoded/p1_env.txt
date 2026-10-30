@@ -1,0 +1,12 @@
+bootdelay=0
+bootcmd=run setargs_nor boot_normal 
+nor_root=/dev/mtdblock4
+mmc_root=/dev/mmcblk0p7
+init=/sbin/init
+loglevel=0
+initcall_debug=0
+boot_type=1
+setargs_nor=setenv bootargs console=${console} init=${init} disp_para=100 ion_cma_list="32m,64m,128m" boot_type=${boot_type} loglevel=${loglevel} partitions=${partitions} initcall_debug=${initcall_debug}
+setargs_mmc=setenv bootargs console=${console} root=${mmc_root} rootwait init=${init} rootfstype=ext4 ion_cma_list="8m,32m,64m" loglevel=${loglevel}
+boot_normal=sunxi_flash read 40007fc0 boot;bootm 40007fc0
+boot_recovery=sunxi_flash read 43800000 recovery;bootm 43800000

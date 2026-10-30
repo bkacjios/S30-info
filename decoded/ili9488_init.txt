@@ -1,0 +1,19 @@
+table @ 0xc09888ec (from LCD_panel_init @ 0xc01d3e9c)
+dcs 0xe0 00 10 14 01 0e 04 33 56 48 03 0c 0b 2b 34 0f
+dcs 0xe1 00 12 18 05 12 06 40 34 57 06 10 0c 3b 3f 0f
+dcs 0xc0 0f 0c
+dcs 0xc1 41
+dcs 0xc5 00 26 80
+dcs 0x36 48
+dcs 0x3a 66
+dcs 0xb0 00
+dcs 0xb1 a0
+dcs 0xb4 02
+dcs 0xb6 02 02
+dcs 0xe9 00
+dcs 0x21 
+dcs 0xf7 a9 51 2c 82
+dcs 0x11 
+delay 120 ms
+dcs 0x29 
+delay 20 ms
